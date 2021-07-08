@@ -10,7 +10,13 @@ userSearchRouter.get('/search=:query', async (req, res) => {
   // Email field is text indexed
   const users = await User.find({ $text: { $search: query } })
 
-  res.status(200).json(users)
+  if (users[0]) {
+    res.status(200).json(users)
+  } else {
+    res.status(200).json({
+      msg: 'No results',
+    })
+  }
 })
 
 module.exports = userSearchRouter

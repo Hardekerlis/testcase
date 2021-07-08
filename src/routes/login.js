@@ -20,7 +20,7 @@ loginRouter.post('/login', async (req, res) => {
   }
 
   // Check if stored and supplied passwords match
-  if (Password.compare(user.password, password)) {
+  if (await Password.compare(user.password, password)) {
     // Create token to be saved in client side session
     const token = jwt.sign(
       {
@@ -36,6 +36,10 @@ loginRouter.post('/login', async (req, res) => {
 
     res.status(200).json({
       msg: 'Login successful',
+    })
+  } else {
+    res.status(400).json({
+      msg: 'Wrong password',
     })
   }
 })

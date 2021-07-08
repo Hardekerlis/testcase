@@ -19,3 +19,11 @@ const sessionSchema = new Schema(
     },
   }
 )
+
+sessionSchema.statics.build = attributes => {
+  return new Session(attributes)
+}
+
+const Session = mongoose.model('sessions', sessionSchema)
+
+module.exports = Session

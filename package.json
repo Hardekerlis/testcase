@@ -1,11 +1,8 @@
 {
   "name": "testcase",
   "version": "1.0.0",
-  "description": "",
+  "description": "Testcase for Microaalabs",
   "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Gustaf Dahl",
   "license": "ISC",
   "dependencies": {

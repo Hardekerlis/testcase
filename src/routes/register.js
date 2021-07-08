@@ -32,13 +32,13 @@ registerRouter.post(
       return
     }
 
-    // Password hashing
-    const hashedPassword = await Password.toHash(password)
-
-    const user = User.build({ email, password: hashedPassword })
+    // No need for password hashing here because it is handled on save with mongoose
+    // See user model
+    const user = User.build({ email, password })
 
     await user.save()
 
+    // Create token for cookie
     const token = jwt.sign(
       {
         id: user.id,

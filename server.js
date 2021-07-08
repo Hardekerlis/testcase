@@ -15,7 +15,7 @@ app.use(
   cookieSession({
     name: 'session',
     signed: false, // Should be true - Need keys for that
-    secure: false,
+    secure: false, // False for HTTP - True for HTTPS
   })
 )
 
@@ -28,6 +28,7 @@ mongoose.connect('mongodb://localhost:27017/testcase', {
   useCreateIndex: true,
 })
 
+// Shouldn't be in code as plaintext
 process.env.JWT_KEY = 'kjasdjasiodoiasdiousadiousadiousadoisaroiuoiasudiouas'
 
 const registerRouter = require('./src/routes/register')
@@ -35,14 +36,18 @@ const loginRouter = require('./src/routes/login')
 const logoutRouter = require('./src/routes/logout')
 const removeAccountRouter = require('./src/routes/removeAccount')
 const userSearchRouter = require('./src/routes/userSearch')
-const forgotPasswordRouter = require('./src/routes/forgotPassword')
-// -- Routes --
+const {
+  forgotPasswordRouter,
+  forgotPasswordSessionRouter,
+} = require('./src/routes/forgotPassword')
+// -- Routers --
 app.use(registerRouter)
 app.use(loginRouter)
 app.use(logoutRouter)
 app.use(removeAccountRouter)
 app.use(userSearchRouter)
 app.use(forgotPasswordRouter)
+app.use(forgotPasswordSessionRouter)
 
 // Catch all 404s
 app.use('*', (req, res) => {
